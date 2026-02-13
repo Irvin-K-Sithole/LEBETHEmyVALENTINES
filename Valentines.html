@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .container {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            position: relative;
+            height: 200px;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: absolute;
+        }
+
+        #yesBtn {
+            background: #00e676;
+            color: white;
+            left: 30%;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background: #ff1744;
+            color: white;
+            left: 60%;
+        }
+
+        .celebration {
+            display: none;
+            animation: pop 0.6s ease forwards;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .meme {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 15px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="mainContent">
+            <h2><i>RORISANG LEBETHE</i></h2>
+            <h1>❤️ You Be My Valentine? ❤️</h1>
+            <div class="buttons">
+                <button id="yesBtn">YES 💖</button>
+                <button id="noBtn">NO 😢</button>
+            </div>
+        </div>
+
+        <div class="celebration" id="celebration">
+            <h1>YAYYYYY!!! <b>I + R</b> 🎉💖</h1>
+            <div class="meme">
+                <p>Me right now:</p>
+                <!-- Replace meme image link if you want -->
+                <img src="https://i.imgflip.com/30b1gx.jpg" alt="Celebration Meme">
+                <p>You just made me the happiest boyfriend alive 😌</p>
+                <p>💖Ngiyakuthanda Mamas😌</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const celebration = document.getElementById("celebration");
+        const mainContent = document.getElementById("mainContent");
+
+        let reallyCount = 0;
+        const maxReally = 3;
+
+        function isMobile() {
+            return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+        }
+
+        // DESKTOP: Run away from cursor
+        if (!isMobile()) {
+            document.addEventListener("mousemove", function (e) {
+                const rect = noBtn.getBoundingClientRect();
+                const distance = Math.hypot(
+                    e.clientX - (rect.left + rect.width / 2),
+                    e.clientY - (rect.top + rect.height / 2)
+                );
+
+                if (distance < 120) {
+                    moveButton();
+                }
+            });
+        }
+
+        function moveButton() {
+            const container = document.querySelector(".buttons");
+            const containerRect = container.getBoundingClientRect();
+
+            const maxX = containerRect.width - noBtn.offsetWidth;
+            const maxY = containerRect.height - noBtn.offsetHeight;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+        }
+
+        // MOBILE: Progressive “Really?” logic
+        noBtn.addEventListener("click", function () {
+            if (isMobile()) {
+                if (reallyCount < maxReally) {
+                    reallyCount++;
+                    let reallyText = "really ".repeat(reallyCount).trim();
+                    alert(`Are you ${reallyText} sure it's a no? 😭`);
+                } else {
+                    alert(`Girlfriend Name, the answer is YES! 😌 Be My lil GoodGirl and click "YES" 💖`);
+                }
+            }
+        });
+
+        // YES button
+        yesBtn.addEventListener("click", function () {
+            mainContent.style.display = "none";
+            celebration.style.display = "block";
+        });
+    </script>
+
+</body>
+
+</html>
